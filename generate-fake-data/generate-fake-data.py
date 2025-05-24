@@ -10,7 +10,7 @@ ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)) )
 load_dotenv(ROOT_DIR+'/.env', override=True)
 
 # Connect to the SQL Server database
-conn = pyodbc.connect(os.environ.get('CONNECTION_STRING'))
+conn = pyodbc.connect('Driver={ODBC Driver 18 for SQL Server};Server=tcp:met-olive-branch-server.database.windows.net,1433;Database=met-olive-branch-db;Uid=metadmin;Pwd=M3t4dm1n!;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
 
 # Create a cursor object to execute SQL queries
 cursor = conn.cursor()

@@ -6,5 +6,5 @@ configs:
   azureml.flow.connection_type: Custom
   azureml.flow.module: promptflow.connections
 secrets:
-  conn: ${env:SQL_CONN_CONN}
+  conn: <user-input>
 module: promptflow.connections

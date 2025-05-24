@@ -1,5 +1,5 @@
-promptflow
-promptflow-tools
-promptflow-azure
-faker
-pyodbc
+promptflow==1.18.0
+promptflow-tools==1.6.0
+promptflow-azure==1.18.0
+faker==37.3.0
+pyodbc==5.2.0

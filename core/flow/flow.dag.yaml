@@ -38,7 +38,7 @@ nodes:
     frequency_penalty: 0
     chat_history: ${inputs.chat_history}
     question: ${inputs.question}
-  connection: AOAILAB03
+  connection: AzureOpenAIConnection
   api: chat
   use_variants: false
 - name: EnsureSQL
@@ -54,7 +54,7 @@ nodes:
     frequency_penalty: 0
     sql_query: ${chat_nl2sql.output}
     max_tokens: 3000
-  connection: AOAILAB03
+  connection: AzureOpenAIConnection
   api: chat
   use_variants: false
 - name: QueryDB
@@ -79,6 +79,6 @@ nodes:
     frequency_penalty: 0
     db_result: ${QueryDB.output}
     max_tokens: 3500
-  connection: AOAILAB03
+  connection: AzureOpenAIConnection
   api: chat
   use_variants: false
