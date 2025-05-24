@@ -24,7 +24,6 @@ suggested_queries = [
 
 # Initialize the API client
 #api_client = APIClient(os.environ.get("API_URL"), os.environ.get("API_KEY"))
-#api_client = APIClient("https://randysopenaieast.openai.azure.com", "b56b855d3bc247118b3126a5c4981ec5")  #RT:  hardcoding for now
 api_client = APIClient("http://localhost:8080/score", "")  #changed to 8501
 
 # Custom CSS to match the style
