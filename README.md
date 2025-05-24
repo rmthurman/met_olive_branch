@@ -149,7 +149,79 @@ The following are links to the pricing details for some of the resources:
 
 ### Deploy instructions
 
-There are two choices; the "Deploy to Azure" offers a one click deployment where you don't have to clone the code, alternatively if you would like a developer experience, follow the [Local deployment instructions](./docs/LOCAL_DEPLOYMENT.md).
+There are two choices; the "Deploy to Azure" offers a one click deployment where you don't have to clone the code, alternatively if you would like a developer experience, follow these instructions:
+
+ENV:
+Create the SQL DB and server
+Get the ODBC string:
+
+Create the schema
+
+Add in the fake data
+
+Prep your WSL:
+sudo apt install unixodbc
+mssql - Installing MS SQL Server ODBC Driver on Ubuntu 24 - Ask Ubuntu
+
+Prep your VS Code:
+Python
+PromptFlow for VS Code
+
+Create the connection for AOAI
+Create the connection for SQL
+
+Update the connection names in flow.diag.yaml
+
+Run it locally, make sure it works:
+
+
+Run the PF as a daemon locally:
+(.venv) PS C:\customers\MilwaukeeTools\NL2SQL>pf flow serve --source ./core/flow --port 8080 --host localhost
+
+Run the steamlit app locally:
+(.venv) PS C:\customers\MilwaukeeTools\NL2SQL> streamlit run frontend/app.py 
+
+Test it out:
+
+
+Deploy it to AI Foundry
+
+![image](https://github.com/user-attachments/assets/24a42117-3ff4-4445-bedb-589996452b31)
+
+
+Deploy the web app:
+
+az login --tenant 16b3c013-d300-468d-ac64-7eda0820b6d3
+
+az cosmosdb sql role definition list --resource-group "met-olive-branch" --account-name "db-19438676-08ea-5ee7-95e1-0482022607ce"
+
+ az cosmosdb sql role assignment create --resource-group "met-olive-branch" --account-name "db-19438676-08ea-5ee7-95e1-0482022607ce" --role-definition-id "/subscriptions/5dd9aa27-bc10-48b2-af1b-ee65bd051194/resourceGroups/met-olive-branch/providers/Microsoft.DocumentDB/databaseAccounts/db-19438676-08ea-5ee7-95e1-0482022607ce/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002" --principal-id "2cd83aa4-9efb-4f6a-842f-97b40e321e76" --scope "/subscriptions/5dd9aa27-bc10-48b2-af1b-ee65bd051194/resourceGroups/met-olive-branch/providers/Microsoft.DocumentDB/databaseAccounts/db-19438676-08ea-5ee7-95e1-0482022607ce"
+
+ az cosmosdb sql role assignment create --resource-group "met-olive-branch" --account-name "db-19438676-08ea-5ee7-95e1-0482022607ce" --role-definition-id "/subscriptions/5dd9aa27-bc10-48b2-af1b-ee65bd051194/resourceGroups/met-olive-branch/providers/Microsoft.DocumentDB/databaseAccounts/db-19438676-08ea-5ee7-95e1-0482022607ce/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002" --principal-id "6c0fc39b-02cb-46a4-8217-35ae7632f89b" --scope "/subscriptions/5dd9aa27-bc10-48b2-af1b-ee65bd051194/resourceGroups/met-olive-branch/providers/Microsoft.DocumentDB/databaseAccounts/db-19438676-08ea-5ee7-95e1-0482022607ce"
+
+ az cosmosdb sql role assignment create --resource-group "met-olive-branch" --account-name "db-19438676-08ea-5ee7-95e1-0482022607ce" --role-definition-id "/subscriptions/5dd9aa27-bc10-48b2-af1b-ee65bd051194/resourceGroups/met-olive-branch/providers/Microsoft.DocumentDB/databaseAccounts/db-19438676-08ea-5ee7-95e1-0482022607ce/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002" --principal-id "dea42ec1-02bd-48e7-a79e-4fc39071b824" --scope "/subscriptions/5dd9aa27-bc10-48b2-af1b-ee65bd051194/resourceGroups/met-olive-branch/providers/Microsoft.DocumentDB/databaseAccounts/db-19438676-08ea-5ee7-95e1-0482022607ce"
+
+Security script (run this command in WSL):
+./role_assignment.sh -o /subscriptions/5dd9aa27-bc10-48b2-af1b-ee65bd051194/resourceGroups/common/providers/Microsoft.CognitiveServices/accounts/randysopenaieast -a /subscriptions/5dd9aa27-bc10-48b2-af1b-ee65bd051194/resourceGroups/met-olive-branch/providers/Microsoft.Storage/storageAccounts/metolivebranch -s  /subscriptions/5dd9aa27-bc10-48b2-af1b-ee65bd051194/resourceGroups/common/providers/Microsoft.Search/searchServices/randysbasiccogsearch
+
+Web App:
+Get-Content .env | ForEach-Object {   
+     if ($_ -match "(?<name>[A-Z_]+)=(?<value>.*)") {   
+         [PSCustomObject]@{   
+             name = $matches["name"]   
+             value = $matches["value"]   
+             slotSetting = $false  
+         }  
+    }  
+} | ConvertTo-Json | Out-File -FilePath env.json
+
+az webapp config set --startup-file "python3 -m gunicorn app:app" -g met-olive-branch --name 19438676-08ea-5ee7-95e1-0482022607ce
+az webapp config appsettings set -g met-olive-branch  -n 19438676-08ea-5ee7-95e1-0482022607ce --settings WEBSITE_WEBDEPLOY_USE_SCM=false
+az webapp config appsettings set -g met-olive-branch  -n 19438676-08ea-5ee7-95e1-0482022607ce --settings "@env.json"
+
+az webapp up --runtime PYTHON:3.11 --sku B1 --name 19438676-08ea-5ee7-95e1-0482022607ce --resource-group met-olive-branch  --location eastus --subscription 5dd9aa27-bc10-48b2-af1b-ee65bd051194
+
+![image](https://github.com/user-attachments/assets/af239093-8e49-4760-99ec-093aac3499dd)
 
 ### Testing the deployment
 
