@@ -121,7 +121,7 @@ LIMIT 1;
 - **Non-Technical Users:** Formulate SQL queries using plain language for data analysis.
 
 
-![One-click Deploy](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+[One-click Deploy](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 ## Deploy
 ### Pre-requisites
 - Azure subscription - [Create one for free](https://azure.microsoft.com/free/) with owner access.
