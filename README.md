@@ -121,7 +121,7 @@ LIMIT 1;
 - **Non-Technical Users:** Formulate SQL queries using plain language for data analysis.
 
 
-![One-click Deploy](/docs/images/oneClickDeploy.png)
+![One-click Deploy](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 ## Deploy
 ### Pre-requisites
 - Azure subscription - [Create one for free](https://azure.microsoft.com/free/) with owner access.
@@ -273,3 +273,4 @@ This repository is licensed under the [MIT License](LICENSE.md).
 
 
 ## Disclaimers
+The original documentation was mediocre at best
